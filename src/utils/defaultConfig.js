@@ -121,7 +121,7 @@ export const DEFAULT_CONFIG = {
   heroes: [
     {
       id: "hero_1",
-      name: "Jenna (Vanguard)",
+      name: "Player 1 (Fortitude)",
       maxHp: 10,
       maxStamina: 3,
       sector: 0,
@@ -130,7 +130,7 @@ export const DEFAULT_CONFIG = {
     },
     {
       id: "hero_2",
-      name: "Alex (Ranger)",
+      name: "Player 2 (Wisdom)",
       maxHp: 10,
       maxStamina: 3,
       sector: 1,
@@ -139,7 +139,7 @@ export const DEFAULT_CONFIG = {
     },
     {
       id: "hero_3",
-      name: "Roy (Guardian)",
+      name: "Player 3 (Courage)",
       maxHp: 10,
       maxStamina: 3,
       sector: 2,
@@ -148,7 +148,7 @@ export const DEFAULT_CONFIG = {
     },
     {
       id: "hero_4",
-      name: "Lyra (Elementalist)",
+      name: "Player 4 (Unity)",
       maxHp: 10,
       maxStamina: 3,
       sector: 3,
@@ -157,7 +157,7 @@ export const DEFAULT_CONFIG = {
     },
     {
       id: "hero_5",
-      name: "Kael (Artificer)",
+      name: "Player 5 (Creativity)",
       maxHp: 10,
       maxStamina: 3,
       sector: 0,

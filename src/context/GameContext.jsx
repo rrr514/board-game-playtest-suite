@@ -771,7 +771,7 @@ export function GameProvider({ children }) {
     const heroNumber = heroes.length + 1;
     const heroObj = {
       id: newId,
-      name: newHeroData?.name || `Hero ${heroNumber}`,
+      name: newHeroData?.name || `Player ${heroNumber}`,
       maxHp: newHeroData?.maxHp || 10,
       hp: newHeroData?.maxHp || 10,
       maxStamina: newHeroData?.maxStamina || 3,
