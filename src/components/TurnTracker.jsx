@@ -105,14 +105,17 @@ export default function TurnTracker({ onOpenConfig, onOpenDm, onOpenRulebook }) 
               <span className="sector-tag">
                 Sector {activeHero.sector} ({config.sectors[activeHero.sector]?.name})
               </span>
-              {activeHero.id === useGame().aggroHeroId && (
+              {activeHero.id === aggroHeroId && (
                 <span className="aggro-token-badge" title="Holds the Aggro Token (Boss targets & starts next round first)">
                   🎯 Aggro Token
                 </span>
               )}
             </div>
+            <div className="round-starter-chip" title="Holds Aggro Token and started this round">
+              👑 Round Starter: <strong>{heroes.find((h) => h.id === aggroHeroId)?.name || activeHero.name}</strong>
+            </div>
             <span className="phase-tag">
-              Phase: {turnPhase === 'movement' ? 'Movement (Clear Block & Move/Stay)' : 'Action (Attack / Defend / Relic)'}
+              Phase: {turnPhase === 'movement' ? 'Movement Phase (Move / Stay)' : 'Action Phase (Attack / Defend / Relic)'}
             </span>
           </div>
         )}

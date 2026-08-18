@@ -27,15 +27,15 @@ function GameContent() {
 
       {/* Main Playtest Dashboard Grid */}
       <div className="dashboard-grid">
-        {/* Left Column: Battlefield Arena & Action Deck */}
+        {/* Left Column: Battlefield Arena & Inferno Dragon Stats */}
         <div className="dash-col main-play-col">
           <Board />
-          <ActionControls />
+          <BossCard />
         </div>
 
-        {/* Right Column: Boss Card, Hero Roster & Game Log */}
+        {/* Right Column: Action Deck (Right of Board), Hero Roster & Game Log */}
         <div className="dash-col side-info-col">
-          <BossCard />
+          <ActionControls />
           <HeroPanel />
           <GameLog />
         </div>

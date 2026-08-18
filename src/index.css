@@ -489,6 +489,98 @@ button:disabled {
   margin-left: 2px;
 }
 
+.rename-input-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rename-input {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid #3b82f6;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  width: 140px;
+}
+
+.btn-icon-rename {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 4px;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+.btn-icon-rename:hover {
+  color: #60a5fa;
+}
+
+.btn-icon-success {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.5);
+  color: #86efac;
+  border-radius: 4px;
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+.btn-icon-cancel {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  border-radius: 4px;
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+.round-starter-chip {
+  background: rgba(234, 179, 8, 0.15);
+  border: 1px solid rgba(234, 179, 8, 0.4);
+  color: #fef08a;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reactions-queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.reaction-queue-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.rx-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.reaction-badge {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fef08a;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
 .aggro-token-pill {
   background: rgba(220, 38, 38, 0.25);
   color: #fef08a;
@@ -607,17 +699,23 @@ button:disabled {
 
 .action-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 8px 12px;
 }
 
 .stamina-badge {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  white-space: nowrap;
   background: rgba(245, 158, 11, 0.15);
   border: 1px solid var(--border-gold);
   color: var(--text-amber);
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .phase-box {
@@ -1150,8 +1248,10 @@ button:disabled {
 /* Sector Vulnerability & Undo Styles */
 .sector-vulnerability-banner {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid var(--border-card);
   padding: 8px 12px;

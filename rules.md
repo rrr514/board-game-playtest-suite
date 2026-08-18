@@ -9,9 +9,9 @@ The boss will be at the center of the board and will rotate to face heroes. Each
 
 Every boss will have exposed sides and protected sides. You can only damage the boss on its exposed sides, and similarly, you cannot take an attack action on a boss’s protected sides.
 Setup
-Each hero starts off by choosing their starting sector
+Each hero starts off by choosing their starting sector. The boss starts off facing north.
 
-In every round, each hero will take their turn in order. The player with the aggro token goes first each round, then play proceeds in order.
+In every round, each hero will take their turn in order. The player with the aggro token goes first each round, then play proceeds in order. The boss will not rotate towards the player with the aggro token after setup.
 
 The fortitude hero starts off with the aggro token, then the order is:
 fortitude, wisdom, courage, unity, creativity
@@ -91,7 +91,7 @@ After all heroes have taken their turn and all reactions have been resolved:
 Recover all stamina
 Begin the new turn
 Knocked Out (KO)
-When you reach 0 hp or lower, you are knocked out. When knocked out, you instantly end your turn, then on the next turn, you revive with half hp, lose 1 max stamina, and then end your turn.
+When you reach 0 hp or lower, you are knocked out. When knocked out, you instantly end your turn, lose all statuses (e.g. threatened, burned), then on the next turn, you revive with half hp, lose 1 max stamina, and then end your turn.
 
 Note: The -1 max stamina penalty stacks, so on your first KO, you will have 2 max stamina, then on your second KO, you will have 1 max stamina, and so on.
 

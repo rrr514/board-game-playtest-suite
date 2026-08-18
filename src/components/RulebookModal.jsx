@@ -93,7 +93,7 @@ export default function RulebookModal({ onClose }) {
             <div className="rule-section">
               <div className="rule-phase-card">
                 <h5>0. Setup Phase 🎮</h5>
-                <p>Before Round 1 begins, each hero chooses their starting sector on the battlefield circular arena.</p>
+                <p>Before Round 1 begins, each hero chooses their starting sector on the battlefield arena. The boss starts off facing <strong>Sector 0 (North)</strong> and will <em>not</em> rotate towards the Aggro holder after setup until Round 1 ends.</p>
               </div>
 
               <p className="phase-desc">Each hero's turn consists of 2 sequential phases:</p>
@@ -260,7 +260,7 @@ export default function RulebookModal({ onClose }) {
                 <h5>💀 KNOCKED OUT (KO'd)</h5>
                 <p>Occurs when hero HP drops to 0.</p>
                 <ul>
-                  <li><strong>Turn Penalty:</strong> Instantly end your turn while KO'd. On next turn, revive with half HP, lose 1 max stamina, and end turn.</li>
+                  <li><strong>Turn & Status Penalty:</strong> Instantly end your turn and <strong>lose all status conditions</strong> (e.g. Threatened, Burned).</li>
                   <li><strong>Revival:</strong> Revive at the end of the round in Recovery Phase with <strong>50% Max HP</strong>.</li>
                   <li><strong>Max Stamina Reduction:</strong> <em>Lose 1 Max Stamina per KO (stacks: 1st KO = 2 max stamina, 2nd KO = 1 max stamina)</em>.</li>
                 </ul>

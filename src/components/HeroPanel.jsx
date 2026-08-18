@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGame } from '../context/GameContext';
-import { Heart, Zap, Shield, Flame, Skull, AlertCircle, UserPlus, Trash2 } from 'lucide-react';
+import { Heart, Zap, Shield, Flame, Skull, AlertCircle, UserPlus, Trash2, Edit2, Check, X } from 'lucide-react';
 
 export default function HeroPanel() {
-  const { heroes, currentHeroIndex, activeHero, config, getActionCost, addHero, removeHero, aggroHeroId } = useGame();
+  const { heroes, currentHeroIndex, activeHero, config, getActionCost, addHero, removeHero, renameHero, aggroHeroId } = useGame();
+  const [editingHeroId, setEditingHeroId] = useState(null);
+  const [editNameText, setEditNameText] = useState('');
+
+  const handleStartRename = (hero) => {
+    setEditingHeroId(hero.id);
+    setEditNameText(hero.name);
+  };
+
+  const handleSaveRename = (heroId) => {
+    if (editNameText && editNameText.trim()) {
+      renameHero(heroId, editNameText.trim());
+    }
+    setEditingHeroId(null);
+  };
 
   return (
     <div className="hero-panel-container">
@@ -25,6 +39,7 @@ export default function HeroPanel() {
           const isActive = activeHero && activeHero.id === hero.id;
           const hpPercent = Math.max(0, Math.min(100, (hero.hp / hero.maxHp) * 100));
           const hasAggro = hero.id === aggroHeroId;
+          const isEditing = editingHeroId === hero.id;
 
           return (
             <div
@@ -35,7 +50,30 @@ export default function HeroPanel() {
                 <div className="hero-identity">
                   <span className="hero-badge-avatar">{hero.name[0]}</span>
                   <div>
-                    <h4 className="hero-name">{hero.name}</h4>
+                    {isEditing ? (
+                      <div className="rename-input-row">
+                        <input
+                          type="text"
+                          className="rename-input"
+                          value={editNameText}
+                          onChange={(e) => setEditNameText(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') handleSaveRename(hero.id);
+                            if (e.key === 'Escape') setEditingHeroId(null);
+                          }}
+                          autoFocus
+                        />
+                        <button className="btn-icon-success" onClick={() => handleSaveRename(hero.id)} title="Save Name"><Check size={14} /></button>
+                        <button className="btn-icon-cancel" onClick={() => setEditingHeroId(null)} title="Cancel"><X size={14} /></button>
+                      </div>
+                    ) : (
+                      <h4 className="hero-name">
+                        {hero.name}
+                        <button className="btn-icon-rename" onClick={() => handleStartRename(hero)} title="Rename Player">
+                          <Edit2 size={13} />
+                        </button>
+                      </h4>
+                    )}
                     <span className="relic-name">✨ {hero.relicName}</span>
                   </div>
                 </div>

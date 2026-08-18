@@ -154,6 +154,16 @@ export function GameProvider({ children }) {
     }
   };
 
+  // Rename Hero Player
+  const renameHero = (heroId, newName) => {
+    if (!newName || !newName.trim()) return;
+    const cleanName = newName.trim();
+    setHeroes((prev) =>
+      prev.map((h) => (h.id === heroId ? { ...h, name: cleanName } : h))
+    );
+    addLog(`✏️ Player renamed to "${cleanName}"`, 'info');
+  };
+
   const startBattle = () => {
     setTurnPhase('movement');
     addLog(`⚔️ Setup complete! All heroes placed in starting sectors. Round 1 begins!`, 'phase');
@@ -182,13 +192,13 @@ export function GameProvider({ children }) {
   const activeHeroId = turnOrder[currentHeroIndex] || turnOrder[0];
   const activeHero = heroes.find((h) => h.id === activeHeroId) || heroes[0];
 
-  // Helper: Calculate effective Max Stamina based on baseMaxStamina and KO count
+  // Helper: Calculate effective Max Stamina based on baseMaxStamina and KO count (can reach 0 stamina)
   const calculateEffectiveMaxStamina = (heroObj) => {
     if (!heroObj) return 3;
     const base = heroObj.baseMaxStamina || heroObj.maxStamina || 3;
     const isCreativity = heroObj.relicAction?.effectType === 'passive' && heroObj.relicAction?.ignoreFirstKoPenalty;
     const effectiveKoCount = (isCreativity && heroObj.koCount <= 1) ? 0 : (isCreativity ? heroObj.koCount - 1 : heroObj.koCount);
-    return Math.max(1, base - effectiveKoCount);
+    return Math.max(0, base - effectiveKoCount);
   };
 
   // Ability action stamina cost (KO decreases Max Stamina directly instead of increasing ability costs)
@@ -248,9 +258,11 @@ export function GameProvider({ children }) {
       logs.push({ text: `🌋 ${updatedHero.name} is BURNED and lost 1 HP at start of movement phase! (${updatedHero.hp}/${updatedHero.maxHp} HP)`, type: 'reaction' });
       if (updatedHero.hp <= 0 && !updatedHero.isKo) {
         updatedHero.isKo = true;
+        updatedHero.isThreatened = false;
+        updatedHero.isBurned = false;
         updatedHero.koCount += 1;
         updatedHero.maxStamina = calculateEffectiveMaxStamina(updatedHero);
-        logs.push({ text: `💀 ${updatedHero.name} was KNOCKED OUT by Burn damage! (Max Stamina reduced to ${updatedHero.maxStamina})`, type: 'reaction' });
+        logs.push({ text: `💀 ${updatedHero.name} was KNOCKED OUT by Burn damage! Cleared all status conditions. (Max Stamina reduced to ${updatedHero.maxStamina})`, type: 'reaction' });
       }
     }
 
@@ -282,9 +294,11 @@ export function GameProvider({ children }) {
         if (updatedHero.hp <= 0) {
           updatedHero.hp = 0;
           updatedHero.isKo = true;
+          updatedHero.isThreatened = false;
+          updatedHero.isBurned = false;
           updatedHero.koCount += 1;
           updatedHero.maxStamina = calculateEffectiveMaxStamina(updatedHero);
-          logs.push({ text: `💀 ${updatedHero.name} was KNOCKED OUT by the Boss reaction! (Max Stamina reduced to ${updatedHero.maxStamina})`, type: 'reaction' });
+          logs.push({ text: `💀 ${updatedHero.name} was KNOCKED OUT by the Boss reaction! Cleared all status conditions. (Max Stamina reduced to ${updatedHero.maxStamina})`, type: 'reaction' });
         }
       }
     }
@@ -632,9 +646,11 @@ export function GameProvider({ children }) {
         }
         if (updated.hp <= 0 && !updated.isKo) {
           updated.isKo = true;
+          updated.isThreatened = false;
+          updated.isBurned = false;
           updated.koCount += 1;
           updated.maxStamina = calculateEffectiveMaxStamina(updated);
-          addLog(`💀 ${updated.name} was KNOCKED OUT by Boss Struggle! (Max Stamina reduced to ${updated.maxStamina})`, 'reaction');
+          addLog(`💀 ${updated.name} was KNOCKED OUT by Boss Struggle! Cleared all status conditions. (Max Stamina reduced to ${updated.maxStamina})`, 'reaction');
         }
         return updated;
       });
@@ -836,6 +852,12 @@ export function GameProvider({ children }) {
     addLog(`🗑️ Removed player: ${heroToRemove ? heroToRemove.name : heroId}`, 'info');
   };
 
+  const resolveReaction = (reactionId) => {
+    if (pendingReaction && pendingReaction.id === reactionId) {
+      setPendingReaction(null);
+    }
+  };
+
   const dismissReactionModal = () => {
     setPendingReaction(null);
   };
@@ -857,9 +879,12 @@ export function GameProvider({ children }) {
         heroes,
         gameLog,
         pendingReaction,
+        pendingReactions: pendingReaction ? [pendingReaction] : [],
         canUndo: history.length > 0,
         undoTurn,
         dismissReactionModal,
+        resolveReaction,
+        renameHero,
         handleMovementChoice,
         performAction,
         endHeroTurn,
